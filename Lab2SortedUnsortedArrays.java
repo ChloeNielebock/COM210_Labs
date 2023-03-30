@@ -25,19 +25,23 @@ public class Lab2SortedUnsortedArrays
         {
             sm[i] = i + 1;
             smUnIns[i] = i + 1;
+            smSortIns[i] = i + 1;
         }
         
         for(int i = 0; i < 100; i++)
         {
             md[i] = i + 1;
             mdUnIns[i] = i + 1;
+            mdSortIns[i] = i + 1;
         }
         
         for(int i = 0; i < 1000; i++)
         {
             lg[i] = i + 1;
             lgUnIns[i] = i + 1;
+            lgSortIns[i] = i + 1;
         }
+        
         
         //Unsorted Fetch Test
         System.out.println("Unsorted Fetch with Small Array: " + unsortedFetch(sm, 10));
@@ -56,7 +60,7 @@ public class Lab2SortedUnsortedArrays
         System.out.println("");
         
         //Unsorted Insert Test
-        System.out.print("Unsorted Insert with Small Array: {");
+        System.out.print("Unsorted Insert with Small Array: ");
         unsortedInsert(smUnIns,30);
         for (int i = 0; i < smUnIns.length; i++)
         {
@@ -65,7 +69,7 @@ public class Lab2SortedUnsortedArrays
         System.out.println("}");
         System.out.println("");
         
-        System.out.println("Unsorted Insert with Medium Array: {");
+        System.out.println("Unsorted Insert with Medium Array: ");
         unsortedInsert(mdUnIns,130);
         for (int i = 0; i < mdUnIns.length; i++)
         {
@@ -74,7 +78,7 @@ public class Lab2SortedUnsortedArrays
         System.out.println("}");
         System.out.println("");
         
-        System.out.println("Unsorted Insert with Large Array: {");
+        System.out.println("Unsorted Insert with Large Array: ");
         unsortedInsert(lgUnIns, 1050);
         for (int i = 0; i < lgUnIns.length; i++)
         {
@@ -84,13 +88,32 @@ public class Lab2SortedUnsortedArrays
         System.out.println("");
         
         //Sorted Insert Test
-        System.out.print("Sorted Insert with Small Array: {");
-        sortedInsert(smSortIns,30);
+        System.out.println("Sorted Insert with Small Array: ");
+        sortedInsert(smSortIns,1);
         for (int i = 0; i < smSortIns.length; i++)
         {
             System.out.print(" " + smSortIns[i]);
         }
         System.out.println("}");
+        System.out.println("");
+        
+        System.out.println("Sorted Insert with Medium Array: ");
+        sortedInsert(mdSortIns,1);
+        for (int i = 0; i < mdSortIns.length; i++)
+        {
+            System.out.print(" " + mdSortIns[i]);
+        }
+        System.out.println("}");
+        System.out.println("");
+        
+        System.out.println("Sorted Insert with Large Array: ");
+        sortedInsert(lgSortIns, 1);
+        for (int i = 0; i < lgSortIns.length; i++)
+        {
+            System.out.print(" " + lgSortIns[i]);
+        }
+        System.out.println("}");
+        System.out.println("");
     }//end main
     
     public static int unsortedFetch(int[] arr, int targetKey)
@@ -133,6 +156,7 @@ public class Lab2SortedUnsortedArrays
     {//start insertUnsorted method
         int next = arr.length-1;
         arr[next] = targetKey;
+        System.out.print("This method took 1 step \n {");
     }//end insertUnsorted method
     
     public static void sortedInsert(int arr[], int targetKey)
@@ -140,12 +164,11 @@ public class Lab2SortedUnsortedArrays
         int next = arr.length-1;
         int low = 0;
         int high = next - 1;
-        int i = 0;
+        int i = (low + high)/2;
         int count = 0;
         
-        while (!(targetKey < arr[i] && targetKey > arr[i-1]))
+        while (!((targetKey <= arr[i]) && (targetKey >= arr[i-1])))
         {
-            i = (low + high)/2;
             if(targetKey < arr[i] && high != low)
             {
                 high = i--; //moves high down to eliminate the lower half of the array
@@ -154,14 +177,16 @@ public class Lab2SortedUnsortedArrays
             {
                 low = i++; //moves low up to eliminate the higher half of the array
             }
+            i = (low + high)/2;
             count = count + 1;
         }
-        
         //moves all the elements to the right to open up a spot for the inserted element
         for(int j = next; j >= i; j--)
         {
             arr[j] = arr[j-1];
+            count = count + 1;
         }
-        System.out.println("This method took " + count + " steps");
+        arr[i] = targetKey;
+        System.out.print("This method took " + count + " steps\n {");
     }//end insertSorted method       
 }//end class
