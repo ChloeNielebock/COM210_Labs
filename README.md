@@ -1,2 +1,2 @@
-# COM210_Labs
-Lab work for COM 210 Spring 2023
+# Lab 3
+Delimiter Program
